@@ -25,7 +25,7 @@ def set_missing_ages(df):
     #对不知道年龄的矩阵进行预测
     predictedAges = rfr.predict(unknown_age[:, 1:])
     df.loc[(df.Age.isnull()), 'Age'] = predictedAges
-    return df
+    return df, rfr
 
 def set_missing_cabin(df):
     #分成知道cabin的和不知道的
@@ -54,17 +54,51 @@ def scalling_age_fare(df):
     scaler.fit(df['Age'].values.reshape(-1, 1))
     scaler.fit(df['Fare'].values.reshape(-1, 1))
     '''
+    return df, age_scale_param, fare_scale_param
+
+def set_missing_ages_test(df, rfr):
+    age_df = df[['Age', 'Pclass', 'SibSp', 'Parch', 'Fare']]
+    unknown_age = age_df[age_df.Age.isnull()].as_matrix()
+    predictedAges = rfr.predict(unknown_age[:, 1:])
+    df.loc[(df.Age.isnull()), 'Age'] = predictedAges
     return df
 
 
 
 
-data_train = pd.read_csv('train.csv')
+
+#训练集数据
+data_train = pd.read_csv(u'train.csv')
 #print data_train['Cabin']
-data_train = set_missing_ages(data_train)
-data_train = set_missing_cabin(data_train)
+#data_train = set_missing_ages(data_train)
+data_train, rfr = set_missing_ages(data_train)
 #data_train.to_csv(u'Age和Cabin处理之后.csv')
-data_train = set_index_num(data_train)
+#data_train = set_index_num(data_train)
 #data_train.to_csv(u"类目因子数值化之后.csv")
-data_train = scalling_age_fare(data_train)
-data_train.to_csv(u"Age和Fare特征化之后.csv")
+#data_train, age_scale_param, fare_scale_param = scalling_age_fare(data_train)
+#data_train.to_csv(u"Age和Fare特征化之后.csv")
+
+
+
+
+#测试集数据
+
+data_test = pd.read_csv("test.csv")
+data_test = set_missing_ages_test(data_test, rfr)
+#data_test = set_missing_cabin
+data_test.to_csv(u"test1.csv")
+
+#data_test = pd.read_csv("test.csv")
+#data_test = set_missing_cabin(data_test)
+#data_test = scalling_age_fare(data_test)
+
+'''
+scaler = preprocessing.StandardScaler()
+data_test['Age_scaled'] = scaler.fit_transform(data_test['Age'].values.reshape(-1,1), age_scale_param)
+data_test['Fare_scaled'] = scaler.fit_transform(data_test['Fare'].values.reshape(-1,1), fare_scale_param)
+
+
+data_test = set_index_num(data_test)
+
+data_test.to_csv(u"test2.csv")
+'''

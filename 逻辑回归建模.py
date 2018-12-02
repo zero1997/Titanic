@@ -7,7 +7,7 @@ from sklearn.ensemble import RandomForestRegressor
 import pandas as pd
 
 
-df = pd.read_csv(u"Age和Fare特征化之后.csv")
+df = pd.read_csv(u"最终train.csv")
 
 train_df = df.filter(regex = 'Survived|Age_.*|SibSp|Parch|Fare_.*|Cabin_.*|Embarked_.*|Sex_.*|Pclass_.*')
 train_np = train_df.as_matrix()
