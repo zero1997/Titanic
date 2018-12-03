@@ -1,0 +1,15 @@
+,coef,columns
+0,[-0.34423572],SibSp
+1,[-0.1049192],Parch
+2,[ 0.],Cabin_no
+3,[ 0.90214269],Cabin_yes
+4,[ 0.],Embarked_C
+5,[ 0.],Embarked_Q
+6,[-0.41724099],Embarked_S
+7,[ 0.34110042],Pclass_1
+8,[ 0.],Pclass_2
+9,[-1.19412086],Pclass_3
+10,[ 1.95656292],Sex_female
+11,[-0.67744314],Sex_male
+12,[-0.52376726],Age_scaled
+13,[ 0.08444747],Fare_scaled
