@@ -22,8 +22,18 @@ y = train_np[:, 0]
 X = train_np[:, 1:]
 clf = linear_model.LogisticRegression(C = 1.0, penalty='l1', tol=1e-6)
 clf.fit(X, y)
+'''
 #df = pd.DataFrame({"columns": list(train_df.columns)[:1], "coef": list(clf.coef_.T)})
 model_feature = pd.DataFrame({"columns": list(train_df.columns)[1:], "coef": list(clf.coef_.T)})
 print model_feature
 result = cross_validation.cross_val_score(clf, X, y, cv = 20)
 print result.mean()
+'''
+
+
+
+df_test = pd.read_csv(u"test_child_mother_family_ticketgroup.csv")
+test = df_test.filter(regex = 'Survived|Age_.*|Fare_.*|Cabin_.*|Embarked_.*|Sex_.*|Pclass_.*|Child|Family_size|Mother')
+predictions = clf.predict(test)
+result = pd.DataFrame({'PassengerId':df_test['PassengerId'].as_matrix(), 'Survived':predictions.astype(np.int32)})
+result.to_csv(u"模型2_logistic_regression_predictions.csv", index=False)
