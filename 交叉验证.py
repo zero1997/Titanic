@@ -9,7 +9,7 @@ from sklearn import cross_validation
 
 
 df = pd.read_csv(u"生成child_mother_family_ticketgroup.csv")
-train_df = df.filter(regex = 'Survived|Age_.*|Fare_.*|Cabin_.*|Embarked_.*|Sex_.*|Pclass_.*|Child|Family_size|Mother')
+train_df = df.filter(regex = 'Survived|Age_.*|Fare_.*|Cabin_.*|Embarked_.*|Sex_.*|Pclass_.*|Child|Family_size|Mother|GroupTicket')
 
 '''
 df = pd.read_csv(u"生成child_mother之后生成family.csv")
