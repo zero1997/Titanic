@@ -7,12 +7,15 @@ from sklearn.ensemble import RandomForestRegressor
 import pandas as pd
 from sklearn import cross_validation 
 from sklearn.ensemble import BaggingRegressor
+import warnings
 
 
 if __name__ == '__main__':
-    df = pd.read_csv(u"生成child_mother_family_ticketgroup.csv")
+    
+    warnings.filterwarnings('ignore')
+    df = pd.read_csv(u"生成child_mother_family_ticketgroup_family离散.csv")
     #print df
-    train_df = df.filter(regex = 'Survived|Age_.*|SibSp|Parch|Fare_.*|Cabin_.*|Embarked_.*|Sex_.*|Pclass.*|Mother|Child|Family_size')
+    train_df = df.filter(regex = 'Survived|Age_.*|SibSp|Parch|Fare_.*|Cabin_.*|Embarked_.*|Sex_.*|Pclass.*|Mother|Child|Family_size|Family_kind')
     train_np = train_df.as_matrix()
     y = train_np[:, 0]
     X = train_np[:, 1:]
@@ -22,8 +25,8 @@ if __name__ == '__main__':
     bagging_clf.fit(X, y)
 
 
-    df_test = pd.read_csv(u"test_child_mother_family_ticketgroup.csv")
-    test = df_test.filter(regex = 'Age_.*|SibSp|Parch|Fare_.*|Cabin_.*|Embarked_.*|Sex_.*|Pclass.*|Mother|Child|Family_size')
+    df_test = pd.read_csv(u"test_child_mother_family_ticketgroup_family离散.csv")
+    test = df_test.filter(regex = 'Age_.*|SibSp|Parch|Fare_.*|Cabin_.*|Embarked_.*|Sex_.*|Pclass.*|Mother|Child|Family_size|Family_kind')
     predictions = bagging_clf.predict(test)
     result = pd.DataFrame({'PassengerId':df_test['PassengerId'].as_matrix(), 'Survived':predictions.astype(np.int32)})
     result.to_csv(u"模型3_bagging预测结果.csv")

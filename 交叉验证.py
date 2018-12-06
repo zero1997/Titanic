@@ -8,12 +8,12 @@ import pandas as pd
 from sklearn import cross_validation 
 
 
-df = pd.read_csv(u"生成child_mother_family_ticketgroup.csv")
-train_df = df.filter(regex = 'Survived|Age_.*|Fare_.*|Cabin_.*|Embarked_.*|Sex_.*|Pclass_.*|Child|Family_size|Mother|GroupTicket')
+df = pd.read_csv(u"生成child_mother_family_ticketgroup_family离散.csv")
+train_df = df.filter(regex = 'Survived|Age_.*|Fare_.*|Cabin_.*|Embarked_.*|Sex_.*|Pclass_.*|Child|Family_size|Mother|GroupTicket|Family_kind')
 
 '''
 df = pd.read_csv(u"生成child_mother之后生成family.csv")
-train_df = df.filter(regex = 'Survived|Fare_.*|Cabin_.*|Embarked_.*|Sex_.*|Pclass_.*|Child|TheOld|TheYoung|Mother|Family_size|Age_.*')
+train_df = df.filter(regex = 'Survived|Fare_.*|Cabin_.*|Embarked_.*|Sex_.*|Pclass_.*|Child|TheOld|TheYoung|Mother|Family_size|Age_.*|Family_kind')
 '''
 train_np = train_df.as_matrix()
 
